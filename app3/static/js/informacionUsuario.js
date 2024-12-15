@@ -109,4 +109,35 @@ function cargarInformacionUsuario(idUsuario)
     PARA PODER ENVIARLO AL SERVIDOR COMO PARTE DE LOS DATOS Y ASI PODER
     RECUPERAR EL OBJETO USUARIO Y ACTUALIZAR LOS DATOS
     */
+    fetch(`/obtenerDatosUsuario?idUsuario=${idUsuario}`)
+    .then(response => response.json())
+    .then(data => {
+        idUsuario = document.getElementById('idUsuario')
+        usernameUsuario = document.getElementById('usernameUsuario')
+        nombreUsuario = document.getElementById('nombreUsuario')
+        apellidoUsuario = document.getElementById('apellidoUsuario')
+        profesionUsuario = document.getElementById('profesionUsuario')
+        emailUsuario = document.getElementById('emailUsuario')
+        nroCelular = document.getElementById('nroCelular')
+        perfilUsuario = document.getElementById('perfilUsuario')
+
+        idUsuario.value = ''
+        usernameUsuario.value = ''
+        nombreUsuario.value = ''
+        apellidoUsuario.value = ''
+        profesionUsuario.value = ''
+        emailUsuario.value = ''
+        nroCelular.value = ''
+        perfilUsuario.value = ''
+        
+        idUsuario.value = data.idUsuario
+        usernameUsuario.value = data.usernameUsuario
+        nombreUsuario.value = data.nombreUsuario
+        apellidoUsuario.value = data.apellidoUsuario
+        profesionUsuario.value = data.profesionUsuario
+        emailUsuario.value = data.emailUsuario
+        nroCelular.value = data.nroCelular
+        perfilUsuario.value = data.perfilUsuario
+
+    })
 }
