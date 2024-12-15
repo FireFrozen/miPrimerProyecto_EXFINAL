@@ -233,9 +233,33 @@ def obtenerDatosUsuario(request):
     Con el id del usuario se puede obtener el objeto y devolver
     el objeto Json con la informacion necesaria.
     """
-    return JsonResponse({
-        'resp':'200'
-    })
+    try:
+        objUsuario = User.objects.get(id = idUsuario)
+        objDatosUsuario = datosUsuario.objects.filter(usrRel=objUsuario).first()
+
+        return JsonResponse({
+            'resp':'200',
+            'idUsuario': idUsuario,
+            'usernameUsuario': objUsuario.username,
+            'nombreUsuario': objUsuario.first_name,
+            'apellidoUsuario' : objUsuario.last_name,
+            'profesionUsuario': objDatosUsuario.profesion,
+            'emailUsuario': objUsuario.email,
+            'nroCelular': objDatosUsuario.nroCelular,
+            'perfilUsuario': objDatosUsuario.perfilUsuario,
+        })
+    except:
+        return JsonResponse({
+            'resp':'404',
+            'idUsuario': 'SIN DATOS',
+            'usernameUsuario': 'SIN DATOS',
+            'nombreUsuario': 'SIN DATOS',
+            'apellidoUsuario' : 'SIN DATOS',
+            'profesionUsuario': 'SIN DATOS',
+            'emailUsuario': 'SIN DATOS',
+            'nroCelular': 'SIN DATOS',
+            'perfilUsuario': 'SIN DATOS',
+        })
 
 def actualizarUsuario(request):
     """
